@@ -9,6 +9,11 @@ trait FileUploadTrait {
     public function uploadFiles($photo, $folder_name) {
         $event_photo_name = [];
         $photos = (gettype($photo) != 'array') ? array($photo) : $photo;
+        $uploadFolder = 'public/uploads';
+
+        if (! file_exists($uploadFolder)) {
+            mkdir($uploadFolder, 0775);
+        }
 
         $thumbnailPath = 'public/uploads/' . $folder_name . '/thumb';
         $originalPath = 'public/uploads/' . $folder_name;
