@@ -1,0 +1,46 @@
+.os-content {
+    padding: 0px !important;
+}
+.nav .nav-item a:not(.active):hover {
+    background-color: #fd7e14 !important;
+    color: #000000 !important;
+}
+.nav .nav-treeview .nav-item a:not(.active):hover {
+    background-color: #ffc107 !important;
+    color: #000000 !important;
+}
+.navbar-nav .nav-item .dropdown-menu a:hover {
+    background-color: #fd7e14 !important;
+}
+.login-box, .register-box {
+    width: 420px !important;
+}
+.modal-header {
+    padding: 0.8rem !important;
+    font-weight: bold;
+}
+.paginate_button a:focus {
+    outline:none;
+    box-shadow: none;
+}
+.user-img {
+    height: 30px !important;
+    width: 30px !important;
+}
+.prod-img {
+    height: 50px !important;
+    width: 50px !important;
+    float: left;
+    margin-right: 8px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+}
+
+.mul-image {
+    height: 80px !important;
+    width: 80px !important;
+    float: left;
+    margin-right: 8px;
+    margin-bottom: 8px;
+    border-radius: 8px;
+}
