@@ -9,8 +9,8 @@ class UserSeeder extends Seeder {
         User::create([
             'first_name' => 'Hari',
             'last_name' => 'Narayan',
-            'email' => 'admin@dinkar.com',
-            'password' => 'Dinkar@123',
+            'email' => 'admin@pixlogix.com',
+            'password' => 'Pixlogix@123',
             'dailing_code' => '+91',
             'mobile_number' => '9316155166',
             'profile_photo' => 'avatar.jpg',

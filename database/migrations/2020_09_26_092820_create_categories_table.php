@@ -9,7 +9,7 @@ class CreateCategoriesTable extends Migration {
         Schema::create('categories', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title', 100);
-            $table->integer('parent_id')->unsigned();
+            $table->integer('parent_id')->unsigned()->default(0);
             $table->tinyInteger('status')->default(1)->comment('1 - Active / 0 - Inactive / Default - 1');
             $table->timestamps();
             $table->softDeletes();

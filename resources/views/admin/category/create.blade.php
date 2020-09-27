@@ -1,19 +1,19 @@
 @extends('admin.layouts.app')
 
 @section('content')
-    {!! Form::open(['method' => 'POST', 'route' => ['admin.products.store'], 'files' => true]) !!}
+    {!! Form::open(['method' => 'POST', 'route' => ['admin.category.store'], 'files' => true]) !!}
     <div class="card card-default">
         <div class="card-header bg-success">
-            <h3 class="card-title">@lang('admin.products.add-new-product')</h3>
+            <h3 class="card-title">@lang('admin.category.add-new-category')</h3>
         </div>
         <div class="card-body">
             {{-- include product form for add or edit --}}
-            @include('admin.product.form')
+            @include('admin.category.form')
         </div>
         <div class="card-footer">
             <div class="row">
                 <div class="col-sm-12 text-right">
-                    <a href="{{ route('admin.products.index') }}" class="btn btn-default">@lang('admin.buttons.back-to-list')</a>
+                    <a href="{{ route('admin.category.index') }}" class="btn btn-default">@lang('admin.buttons.back-to-list')</a>
                     {!! Form::submit(trans('admin.buttons.save'), ['class' => 'btn btn-success']) !!}
                     {!! Form::close() !!}
                 </div>

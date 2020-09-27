@@ -15,6 +15,7 @@
                 <thead>
                     <tr>
                         <th>@lang('admin.category.fields.title')</th>
+                        <th>@lang('admin.category.fields.status')</th>
                         <th>@lang('admin.category.fields.parent-category')</th>
                         <th>@lang('admin.buttons.action')</th>
                     </tr>
@@ -24,11 +25,33 @@
                         @foreach ($categories as $category)
                             <tr data-entry-id="{{ $category->id }}">
                                 <td field-key='title'>{{ $category->title }}</td>
+                                <td field-key='status'>
+                                    @if ($category->status)
+                                        <span class="bg-success rounded p-2 mr-1">Active</span>
+                                    @else
+                                        <span class="bg-danger rounded p-2 mr-1">Inactive</span>
+                                    @endif
+                                </td>
                                 <td field-key='categories'>
-                                    @if (count($category->category))
-                                        @foreach ($category->category as $key => $category)
-                                            <span class="bg-primary rounded p-2 mr-1">{{ $category->title }}</span>
-                                        @endforeach
+                                    @if ($category->parent_id)
+                                        @php
+                                            $subCategories1 = \App\Models\Category::where('id', $category->parent_id)
+                                            ->get();
+                                        @endphp
+                                        @if (count($subCategories1))
+                                            @foreach ($subCategories1 as $subCategory)
+                                                <span class="bg-primary rounded p-2 mr-1">{{ $subCategory->title }}</span>
+                                                @php
+                                                    $subCategories2 = \App\Models\Category::where('id', $subCategory->parent_id)
+                                                    ->get();
+                                                @endphp
+                                                @if (count($subCategories2))
+                                                    @foreach ($subCategories2 as $subCategory1)
+                                                        <span class="bg-primary rounded p-2 mr-1">{{ $subCategory1->title }}</span>
+                                                    @endforeach
+                                                @endif
+                                            @endforeach
+                                        @endif
                                     @else
                                         -
                                     @endif

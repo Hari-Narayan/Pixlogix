@@ -1,19 +1,19 @@
 @extends('admin.layouts.app')
 
 @section('content')
-    {!! Form::model($product, ['method' => 'PUT', 'route' => ['admin.products.update', $product->id], 'files' => true]) !!}
+    {!! Form::model($category, ['method' => 'PUT', 'route' => ['admin.category.update', $category->id], 'files' => true]) !!}
     <div class="card card-default">
         <div class="card-header bg-success">
-            <h3 class="card-title">@lang('admin.products.add-new-product')</h3>
+            <h3 class="card-title">@lang('admin.category.add-new-category')</h3>
         </div>
         <div class="card-body">
-            {{-- include product form for add or edit --}}
-            @include('admin.product.form')
+            {{-- include category form for add or edit --}}
+            @include('admin.category.form')
         </div>
         <div class="card-footer">
             <div class="row">
                 <div class="col-sm-12 text-right">
-                    <a href="{{ route('admin.products.index') }}" class="btn btn-default">@lang('admin.buttons.back-to-list')</a>
+                    <a href="{{ route('admin.category.index') }}" class="btn btn-default">@lang('admin.buttons.back-to-list')</a>
                     {!! Form::submit(trans('admin.buttons.update'), ['class' => 'btn btn-warning']) !!}
                     {!! Form::close() !!}
                 </div>

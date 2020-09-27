@@ -4,68 +4,69 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreCategoryRequest;
+use App\Http\Requests\UpdateCategoryRequest;
 
 use App\Models\Category;
 
+use DB;
+
 class CategoryController extends Controller {
     public function index() {
-        $categories = Category::orderBy('id', 'DESC')->get();
+        $categories = Category::orderBy('id', 'DESC')
+        ->get();
 
         return view('admin.category.index', compact('categories'));
     }
 
     public function create() {
-        //
+        $categories = Category::where('parent_id', 0)
+        ->where('status', 1)
+        ->with('subCategory')
+        ->get()
+        ->toArray();
+
+        return view('admin.category.create', compact('categories'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request) {
-        //
+    public function store(StoreCategoryRequest $request) {
+        $insert_data = $request->all();
+
+        Category::create($insert_data);
+
+        return redirect()->route('admin.category.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Category  $category
-     * @return \Illuminate\Http\Response
-     */
     public function show(Category $category) {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Category $category) {
-        //
+    public function edit($id) {
+        $category = Category::findOrFail($id);
+        $categories = Category::where('parent_id', 0)
+        ->whereNotIn('id', [$id])
+        ->where('status', 1)
+        ->with('subCategory')
+        ->get()
+        ->toArray();
+
+        return view('admin.category.edit', compact('category', 'categories'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Category $category) {
-        //
+    public function update(UpdateCategoryRequest $request, $id) {
+        $insert_data = $request->all();
+
+        $category = Category::findOrFail($id);
+        $category->update($insert_data);
+
+        return redirect()->route('admin.category.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Category $category) {
-        //
+    public function destroy($id) {
+        $category = Category::findOrFail($id);
+        $category->delete($id);
+        Category::where('parent_id', $id)->delete();
+
+        return redirect()->route('admin.category.index');
     }
 }

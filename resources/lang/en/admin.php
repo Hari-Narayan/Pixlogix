@@ -46,6 +46,7 @@ return [
         'update' => 'Update',
         'view' => 'View',
         'delete' => 'Delete',
+        'clear-all' => 'Clear All',
         'choose-file' => 'Choose file',
         'back-to-list' => 'Back To List',
         'back-to-dashboard' => 'Back To Dashboard',
@@ -70,6 +71,7 @@ return [
             'description' => 'Description',
             'categories' => 'Categories',
             'status' => 'Status',
+            'search' => 'Search',
         ],
     ],
 
