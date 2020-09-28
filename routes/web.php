@@ -35,6 +35,7 @@ Route::group(['prefix' => 'backoffice', 'namespace' => 'Auth', 'as' => 'auth.'],
 Route::group(['middleware' => 'auth', 'prefix' => 'backoffice', 'namespace' => 'Admin', 'as' => 'admin.'], function () {
     Route::get('home', 'HomeController@index')->name('home');
     Route::resource('products', 'ProductController');
+    Route::get('product_export', 'ProductController@productExport')->name('export');
     Route::resource('category', 'CategoryController');
 });
 

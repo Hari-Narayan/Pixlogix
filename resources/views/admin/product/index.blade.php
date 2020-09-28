@@ -38,6 +38,16 @@
     </div>
     <div class="card card-default">
         <div class="card-body">
+            <div class="row">
+                <div class="col-sm-12 text-right">
+                    <button class="btn btn-info pl-3 pr-3" data-toggle="tooltip" data-placement="top" title="@lang('admin.buttons.import')">
+                        <i class="fas fa-file-import"></i>
+                    </button>
+                    <a href="{{ url('backoffice/product_export') }}" class="btn btn-warning pl-3 pr-3" data-toggle="tooltip" data-placement="top" title="@lang('admin.buttons.export')">
+                        <i class="fas fa-share-square"></i>
+                    </a>
+                </div>
+            </div>
             <table class="table table-bordered table-striped w-100" id="productTable">
                 <thead class="bg-success">
                     <tr>
@@ -58,6 +68,7 @@
     <script>
         $(document).ready(function () {
             setTimeout(function() {
+                $('.dataTables_filter').hide();
                 $('#productTable').removeClass('dataTable');
             }, 100);
 

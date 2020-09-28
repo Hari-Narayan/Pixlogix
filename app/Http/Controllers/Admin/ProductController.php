@@ -6,14 +6,19 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Traits\FileUploadTrait;
 use Yajra\DataTables\Facades\DataTables;
+use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\WithHeadings;
+
+use App\Http\Requests\StoreProductRequest;
+use App\Http\Requests\UpdateProductRequest;
 
 use App\Models\Product;
-
 use App\Models\Category;
 use App\Models\ProductCategory;
 use App\Models\ProductImage;
 
 use DB;
+use Excel;
 
 class ProductController extends Controller {
     use FileUploadTrait;
@@ -132,6 +137,10 @@ class ProductController extends Controller {
                 }
             });
 
+            $table->editColumn('short_description', function ($row) {
+                return ($row->short_description) ? $row->short_description : '-';
+            });
+
             $table->rawColumns(['actions', 'status', 'category', 'image']);
 
             return $table->make(true);
@@ -146,7 +155,7 @@ class ProductController extends Controller {
         return view('admin.product.create', compact('categories'));
     }
 
-    public function store(Request $request) {
+    public function store(StoreProductRequest $request) {
         $input_data = $request->only(['title', 'sku', 'short_description', 'description', 'status']);
         $category_ids = $request->get('category_id', '');
         $photos = [];
@@ -190,7 +199,7 @@ class ProductController extends Controller {
         return view('admin.product.edit', compact('product', 'categories', 'selected_categories'));
     }
 
-    public function update(Request $request, $id) {
+    public function update(UpdateProductRequest $request, $id) {
         $input_data = $request->only(['title', 'sku', 'short_description', 'description', 'status']);
         $category_ids = $request->get('category_id', '');
         $photos = [];
@@ -226,5 +235,20 @@ class ProductController extends Controller {
         ProductImage::where('product_id', $id)->delete();
 
         return redirect()->route('admin.products.index');
+    }
+
+    public function productExport() {
+        return Excel::download(new ExportData, 'products.csv');
+    }
+}
+
+class ExportData implements FromCollection, WithHeadings {
+    public function collection() {
+        return  Product::select('title', 'sku', 'short_description', 'description', 'status')
+        ->get();
+    }
+
+    public function headings(): array {
+        return ['Title', 'SKU', 'Short Description', 'Description', 'Status'];
     }
 }

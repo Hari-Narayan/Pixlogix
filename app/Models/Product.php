@@ -10,6 +10,14 @@ class Product extends Model {
 
     protected $fillable = ['title', 'sku', 'short_description', 'description', 'status'];
 
+    public function setShortDescriptionAttribute($input) {
+        $this->attributes['short_description'] = $input ? $input : '';
+    }
+
+    public function setDescriptionAttribute($input) {
+        $this->attributes['description'] = $input ? $input : '';
+    }
+
     public function images() {
         return $this->hasMany(ProductImage::class, 'product_id');
     }

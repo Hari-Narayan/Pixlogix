@@ -46,6 +46,8 @@ return [
         'update' => 'Update',
         'view' => 'View',
         'delete' => 'Delete',
+        'export' => 'Export',
+        'import' => 'Import',
         'clear-all' => 'Clear All',
         'choose-file' => 'Choose file',
         'back-to-list' => 'Back To List',
